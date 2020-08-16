@@ -1,0 +1,27 @@
+.item a{
+    color: black;
+}
+
+a.active {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+a.active:before {
+    content: '\27A4';
+    font-size: 15px;
+    margin-right: 5px;
+    color: blue;
+}
+
+.content {
+    width: 90%;
+}
+
+.trim {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
