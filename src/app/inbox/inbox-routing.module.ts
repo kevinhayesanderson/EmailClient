@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EmailResolverService } from './email-resolver.service';
-import { EmailShowComponent } from './email-show/email-show.component';
-import { HomeComponent } from './home/home.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { PlaceholderComponent } from './placeholder/placeholder.component';
 
+import { HomeComponent } from './home/home.component';
+import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { EmailShowComponent } from './email-show/email-show.component';
+import { EmailResolverService } from './email-resolver.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -23,10 +23,7 @@ const routes: Routes = [
           email: EmailResolverService
         }
       },
-      {
-        path: '',
-        component: PlaceholderComponent
-      }
+      { path: '', component: PlaceholderComponent }
     ]
   }
 ];
@@ -35,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class InboxRoutingModule { }
+export class InboxRoutingModule {}

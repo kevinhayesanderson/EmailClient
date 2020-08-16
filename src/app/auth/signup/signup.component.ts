@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MatchPassword } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -42,9 +42,9 @@ export class SignupComponent implements OnInit {
     private uniqueUsername: UniqueUsername,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSubmit() {
     if (this.authForm.invalid) {
@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
     }
 
     this.authService.signup(this.authForm.value).subscribe({
-      next: () => {
+      next: response => {
         this.router.navigateByUrl('/inbox');
       },
       error: err => {

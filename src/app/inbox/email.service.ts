@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Email } from './email';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { Email } from './email';
 
 interface EmailSummary {
   id: string;
@@ -16,7 +16,6 @@ const CACHE_SIZE = 1;
   providedIn: 'root'
 })
 export class EmailService {
-
   rootUrl = 'https://api.angular-email.com';
 
   cache$ = Array<Observable<Email>>();
@@ -39,5 +38,9 @@ export class EmailService {
         );
     }
     return this.cache$[id];
+  }
+
+  sendEmail(email: Email) {
+    return this.http.post(`${this.rootUrl}/emails`, email);
   }
 }

@@ -37,11 +37,13 @@ interface SigninResponse {
 export class AuthService {
   rootUrl = 'https://api.angular-email.com';
   signedin$ = new BehaviorSubject(null);
+  username = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   usernameAvailable(username: string) {
-    return this.http.post<UsernameAvailableResponse>(`${this.rootUrl}/auth/username`,
+    return this.http.post<UsernameAvailableResponse>(
+      `${this.rootUrl}/auth/username`,
       {
         username
       }
@@ -49,36 +51,42 @@ export class AuthService {
   }
 
   signup(credentials: SignupCredentials) {
-    return this.http.post<SignupResponse>(`${this.rootUrl}/auth/signup`, credentials)
+    return this.http
+      .post<SignupResponse>(`${this.rootUrl}/auth/signup`, credentials)
       .pipe(
-        tap(() => {
+        tap(({ username }) => {
           this.signedin$.next(true);
+          this.username = username;
         })
       );
   }
 
   checkAuth() {
-    return this.http.get<SignedinResponse>(`${this.rootUrl}/auth/signedin`)
+    return this.http
+      .get<SignedinResponse>(`${this.rootUrl}/auth/signedin`)
       .pipe(
-        tap(({ authenticated }) => {
+        tap(({ authenticated, username }) => {
           this.signedin$.next(authenticated);
-        }));
-  }
-
-  signout() {
-    return this.http.post(`${this.rootUrl}/auth/signout`, {})
-      .pipe(
-        tap(() => {
-          this.signedin$.next(false);
+          this.username = username;
         })
       );
   }
 
+  signout() {
+    return this.http.post(`${this.rootUrl}/auth/signout`, {}).pipe(
+      tap(() => {
+        this.signedin$.next(false);
+      })
+    );
+  }
+
   signin(credentials: SigninCredentials) {
-    return this.http.post<SigninResponse>(`${this.rootUrl}/auth/signin`, credentials)
+    return this.http
+      .post<SigninResponse>(`${this.rootUrl}/auth/signin`, credentials)
       .pipe(
-        tap(() => {
+        tap(({ username }) => {
           this.signedin$.next(true);
+          this.username = username;
         })
       );
   }

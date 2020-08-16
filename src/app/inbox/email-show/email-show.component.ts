@@ -8,11 +8,9 @@ import { Email } from '../email';
   styleUrls: ['./email-show.component.css']
 })
 export class EmailShowComponent implements OnInit {
-
   email: Email;
 
-  constructor(
-    private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute) {
     this.email = route.snapshot.data.email;
     this.route.data.subscribe(({ email }) => {
       this.email = email;
@@ -47,5 +45,4 @@ export class EmailShowComponent implements OnInit {
     // ? that's why we use resolver on data fetching in the constructor instead of having an *ngIf check
     // ? so there's no need for these code, if we use resolver, commenting out for future reference
   }
-
 }

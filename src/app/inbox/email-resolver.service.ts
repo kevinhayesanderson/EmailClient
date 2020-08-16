@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { EMPTY, Observable } from 'rxjs';
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Email } from './email';
 import { EmailService } from './email.service';
@@ -9,11 +9,11 @@ import { EmailService } from './email.service';
   providedIn: 'root'
 })
 export class EmailResolverService implements Resolve<Email> {
-
   constructor(private emailService: EmailService, private router: Router) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Email> {
+  resolve(route: ActivatedRouteSnapshot) {
     const { id } = route.params;
+
     return this.emailService.getEmail(id).pipe(
       catchError(() => {
         this.emailService.deleteCache(id);
@@ -22,5 +22,4 @@ export class EmailResolverService implements Resolve<Email> {
       })
     );
   }
-
 }
