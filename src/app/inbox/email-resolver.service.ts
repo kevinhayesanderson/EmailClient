@@ -16,6 +16,7 @@ export class EmailResolverService implements Resolve<Email> {
     const { id } = route.params;
     return this.emailService.getEmail(id).pipe(
       catchError(() => {
+        this.emailService.deleteCache(id);
         this.router.navigateByUrl('/inbox/not-found');
         return EMPTY;
       })
