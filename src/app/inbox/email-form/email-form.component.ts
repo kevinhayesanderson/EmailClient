@@ -12,7 +12,7 @@ export class EmailFormComponent implements OnInit {
   @Input() email: Email;
   @Output() emailSubmit = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     const { subject, from, to, text } = this.email;

@@ -12,9 +12,9 @@ export class InputComponent implements OnInit {
   @Input() inputType: string;
   @Input() controlType = 'input';
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   showErrors() {
     const { dirty, touched, errors } = this.control;
